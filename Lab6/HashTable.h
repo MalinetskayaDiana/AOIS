@@ -4,6 +4,7 @@
 class HashTable
 {
 private:
+	const int _countOfRows = 20;
 	TableCell _hashTable[20];
 	int _countOfFreeCell;
 	int charSymbolToInt(char ch);

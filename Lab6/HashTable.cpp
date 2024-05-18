@@ -43,7 +43,7 @@ void HashTable::addTermin(string termin, string definition)
 	if (_countOfFreeCell > 0)
 	{
 		int probation = hashFunction(termin);
-		int index = probation % 20;
+		int index = probation % _countOfRows;
 		if (_hashTable[index].getKeyWord() == "")
 			fullTableCell(index, termin, definition);
 		else 
@@ -51,7 +51,7 @@ void HashTable::addTermin(string termin, string definition)
 			int i = 1;
 			while (_hashTable[index].getKeyWord() != "")
 			{
-				index = (probation + i * termin.length()) % 20;
+				index = (probation + i * termin.length()) % _countOfRows;
 				i++;
 			}
 			fullTableCell(index, termin, definition);
@@ -64,7 +64,7 @@ void HashTable::addTermin(string termin, string definition)
 void HashTable::removeTermin(string termin)
 {
 	int index = findTermin(termin);
-	if (index < 20)
+	if (index < _countOfRows)
 	{
 		cleanOutCell(index);
 	}
@@ -76,7 +76,7 @@ int HashTable::findTermin(string termin)
 {
 	int result = 20;
 	int probation = hashFunction(termin), i = 1;
-	int index = probation % 20;
+	int index = probation % _countOfRows;
 	while (!_hashTable[index].getFreeCellFlag()) 
 	{
 		if (_hashTable[index].getKeyWord() == termin) 
@@ -86,7 +86,7 @@ int HashTable::findTermin(string termin)
 		}
 		else 
 		{
-			index = (probation + i * termin.length()) % 20;
+			index = (probation + i * termin.length()) % _countOfRows;
 			i++;
 		}
 	}
@@ -96,7 +96,7 @@ int HashTable::findTermin(string termin)
 void HashTable::printHashTable()
 {
 	cout << "\nHash Table:" << endl;
-	for (int i = 0; i < 20; i++)
+	for (int i = 0; i < _countOfRows; i++)
 	{
 		string tabulation = i < 10 ? " " : "";
 		if (_hashTable[i].getKeyWord() == "")
